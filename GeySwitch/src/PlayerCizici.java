@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -13,20 +16,31 @@ public class PlayerCizici extends JPanel implements KeyListener,ActionListener{
 	Rectangle d,c;
 	Player[] p;
 	Dikdortgen[] l;
+	ObjectInputStream iStream,iStreamS;
 	int oyuncusayisi;
-	double oran=0.005;
+	double oran=0.002;
+	int dmevcut;
 	public PlayerCizici(Player[] g,int s) 
 	{
 	super();
 	addKeyListener(this);
-	Timer t1=new Timer(5,this);
+	Timer t1=new Timer(15,this);
 	d=new Rectangle(0, 0,1600,50);
 	c=new Rectangle(0,800,1600,50);
-	l=new Dikdortgen[10];
-	l[0]=new Dikdortgen(2500, 50,120, 320);
+	l=new Dikdortgen[50];
+	dOku();
+	System.out.println(dmevcut);
+	dTasi();
 	diziKlonla(g);
 	oyuncusayisi=s;
 	t1.start();
+	}
+	public void dTasi()
+	{
+		for(int i=0;i<dmevcut;i++)
+		{
+			l[i].getRectangle().setLocation((int) (l[i].getRectangle().getX()+2000),(int) (l[i].getRectangle().getY()));
+		}
 	}
 	public void diziKlonla(Player[] g)
 	{
@@ -36,40 +50,54 @@ public class PlayerCizici extends JPanel implements KeyListener,ActionListener{
 			p[i]=g[i];
 		}
 	}
+	public void dOku()
+	{
+		try 
+		{
+			iStream=new ObjectInputStream(new FileInputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgen.data"));
+			iStreamS=new ObjectInputStream(new FileInputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgenS.data"));
+			Object okunan=iStream.readObject();
+			l =(Dikdortgen[])okunan;
+			dmevcut=(int)iStreamS.readInt();
+		} catch (IOException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		for(int i=0;i<oyuncusayisi;i++)
 		{
 			p[i].ekranaCiz(g);
-			repaint();
 		}
-		g.setColor(Color.BLACK);
-		g.fillRect((int)d.getX(), (int)d.getY(),(int)d.getWidth(),(int)d.getHeight());
-		g.fillRect((int)c.getX(), (int)c.getY(),(int)c.getWidth(),(int)c.getHeight());
-		l[0].ekranaCiz(g);
-	}
-	
-	
-	
-	
+		for(int i=0;i<dmevcut;i++)
+		{
+			l[i].ekranaCiz(g);
+		}
+	}	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for(int i=0;i<oyuncusayisi;i++)
 		{
-			p[i].hiz=(int)((800-p[i].getX())*oran);
-			p[i].HaraketEt(l, p, oyuncusayisi, i, 1, p[i].getRectangle());
-			p[i].GravityEffect(p,oyuncusayisi,i);
+			p[i].hiz=(int)((1200-p[i].getX())*oran);
+			p[i].HaraketEt(l, p, oyuncusayisi, i, dmevcut, p[i].getRectangle());
+			p[i].GravityEffect(p,l,dmevcut,oyuncusayisi,i);
+			if(p[i].getX()+p[i].width<-50||p[i].getY()+p[i].height<-50)
+			{p[i].kill();}
+			repaint();
 		}
-		l[0].haraketEt();
+		for(int i=0;i<dmevcut;i++)
+		{
+			l[i].haraketEt();
+			repaint();
+		}
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		for(int i=0;i<oyuncusayisi;i++) {
 		if(e.getKeyCode()==p[i].tus)
-			{p[i].Reverse();
-			System.out.println("reverse");
-			}
+			{p[i].Reverse();}
 		}
 	}
 	@Override

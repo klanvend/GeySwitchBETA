@@ -141,7 +141,7 @@ public class Menu extends JPanel implements KeyListener,ActionListener{
 			if (i==4) {t = 65; }
 			if (i==5) {t = 99; }
 			if (i==6) {t = 76; }
-			p[i]=new Player(t,20,(75+100*i),50,50);
+			p[i]=new Player(t,20,(75+150*i),50,50);
 		}
 		oyuncusayisi=2;
 	}

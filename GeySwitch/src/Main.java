@@ -1,18 +1,37 @@
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Scrollbar;
+
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 public class Main {
-
-	
+	static JFrame pencere;
 	public static void main(String[] args) {
 		
-		JFrame pencere=new JFrame("Arayüz");
+		pencere=new JFrame("Arayüz");
 		pencere.setVisible(true);
 		pencere.setSize(1600,900);
-		MapEditor a=new MapEditor();
-		pencere.add(a);
-		pencere.addMouseListener(a);
+		pencere.setResizable(false);
+		pencere.setLocationRelativeTo(null);
 		pencere.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		/*PlayerCizici p;
+       
+		openMapEditor();
+		//letTheGameBegin();
+	}
+	public static void openMapEditor()
+	{
+		MapEditor a=new MapEditor();
+		a.setPreferredSize(new Dimension(10000,900));
+		JScrollPane sc=new JScrollPane(a, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+										  JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		pencere.add(sc);
+		pencere.addMouseListener(a);
+		
+	}
+	public static void letTheGameBegin()
+	{
+		PlayerCizici p;
 		Menu m=new Menu();
 		if(m.start==0) 
 		{
@@ -35,8 +54,8 @@ public class Main {
 			pencere2.addKeyListener(p);
 			System.out.println("else if girdi");
 			pencere2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		}*/
-				
+		}
 	}
+	
 	}
 	

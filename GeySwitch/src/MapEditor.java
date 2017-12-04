@@ -9,18 +9,25 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 public class MapEditor extends JPanel implements MouseListener{
 	Dikdortgen[] d;
 	int k=0;
 	int dmevcut=0,dmax=50;
 	int x,y,width,height;
+	boolean ciz;
 	ObjectInputStream iStream,iStreamS;
 	public MapEditor()
 	{
 		super();
 		d=new Dikdortgen[dmax];
 		addMouseListener(this);
+		dOku();
+		
+	}
+	public void dOku()
+	{
 		try 
 		{
 			iStream=new ObjectInputStream(new FileInputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgen.data"));
@@ -32,7 +39,6 @@ public class MapEditor extends JPanel implements MouseListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	public void paintComponent(Graphics g)
 	{
@@ -40,15 +46,24 @@ public class MapEditor extends JPanel implements MouseListener{
 		for(int i=0;i<dmevcut;i++)
 		{
 			d[i].ekranaCiz(g);
-			repaint();
 		}
-		
+		for(int i=0;i<10000;i+=20)
+		{
+			g.drawLine(i, 0,i , 900);
+		}
+		for(int i=0;i<10000;i+=20)
+		{
+			g.drawLine(0, i,10000 , i);
+		}
+		if(ciz==true)
+		{
+		g.setColor(Color.RED);
+		g.drawOval(x-5, y-5,10, 10);
+		}
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
-		
 	}
 
 	@Override
@@ -66,13 +81,13 @@ public class MapEditor extends JPanel implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
 		if (e.getButton()==e.BUTTON1) 
 		{
 			if (k % 2 == 0) {
 				x = e.getX();
 				y = e.getY();
-
+				ciz=true;
+				repaint();
 			} else if (k % 2 == 1) {
 				width = e.getX() - x;
 				height = e.getY() - y;
@@ -89,10 +104,12 @@ public class MapEditor extends JPanel implements MouseListener{
 		}	
 		if(e.getButton()==e.BUTTON3)
 		{
+			if(dmevcut>0) {
 			d[dmevcut-1]=new Dikdortgen(0,0, 0, 0);
 			dmevcut--;
 			repaint();
 		}
+			}
 		if(e.getButton()==e.BUTTON2)
 		{
 			ObjectOutputStream oStream,oStreamS;
@@ -106,7 +123,7 @@ public class MapEditor extends JPanel implements MouseListener{
 			
 				oStream.close();
 				oStreamS.close();
-			
+				JOptionPane.showMessageDialog(null, "Map has been saved", "" + "MapEditor", JOptionPane.INFORMATION_MESSAGE);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -119,8 +136,8 @@ public class MapEditor extends JPanel implements MouseListener{
 		
 	}
 
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 }

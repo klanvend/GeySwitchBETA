@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Dikdortgen implements Serializable{
 	Rectangle r;
 	int x,y,width,height;
-	int hiz=2;
+	int hiz=3;
 	public Dikdortgen(int x, int y, int width, int height) {
 		super();
 		r=new Rectangle(x,y,width,height);
