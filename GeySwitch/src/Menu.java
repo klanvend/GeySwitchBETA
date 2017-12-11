@@ -22,6 +22,8 @@ public class Menu extends JPanel implements KeyListener,ActionListener{
 	int harf;
 	String b8t,b9t,b10t,b11t,b12t,b13t,b14t;
 	int t;
+	Color g;
+	private int s;
 	public Menu() 
 	{
 		super();
@@ -134,14 +136,14 @@ public class Menu extends JPanel implements KeyListener,ActionListener{
 		p=new Player[oyuncusayisi];
 		for(int i=0;i<oyuncusayisi;i++)
 		{
-			if (i==0) {t = 67; }
-			if (i==1) {t = 77; }
-			if (i==2) {t = 17; }
-			if (i==3) {t = 39; }
-			if (i==4) {t = 65; }
-			if (i==5) {t = 99; }
-			if (i==6) {t = 76; }
-			p[i]=new Player(t,20,(75+150*i),50,50);
+			if (i==0) {t = 67; g=Color.BLACK;s=80;}
+			if (i==1) {t = 77; g=Color.BLUE;s=240;}
+			if (i==2) {t = 17; g=Color.GREEN;s=320;}
+			if (i==3) {t = 39; g=Color.RED;s=480;}
+			if (i==4) {t = 65; g=Color.CYAN;s=560;}
+			if (i==5) {t = 99; g=Color.MAGENTA;s=720;}
+			if (i==6) {t = 76; g=Color.YELLOW;s=600;}
+			p[i]=new Player(t,20,(s),40,40,g,true);
 		}
 		oyuncusayisi=2;
 	}

@@ -7,17 +7,17 @@ import javax.swing.JScrollPane;
 
 public class Main {
 	static JFrame pencere;
+	static int a=0;
 	public static void main(String[] args) {
 		
-		pencere=new JFrame("Arayüz");
+		pencere=new JFrame("Arayüz");//
 		pencere.setVisible(true);
 		pencere.setSize(1600,900);
-		pencere.setResizable(false);
+		pencere.setResizable(true);
 		pencere.setLocationRelativeTo(null);
 		pencere.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
-		openMapEditor();
-		//letTheGameBegin();
+	//	openMapEditor();
+	letTheGameBegin();
 	}
 	public static void openMapEditor()
 	{
@@ -25,9 +25,10 @@ public class Main {
 		a.setPreferredSize(new Dimension(10000,900));
 		JScrollPane sc=new JScrollPane(a, JScrollPane.VERTICAL_SCROLLBAR_NEVER,
 										  JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		pencere.add(sc);
 		pencere.addMouseListener(a);
-		
+		pencere.addKeyListener(a);
+		pencere.addMouseMotionListener(a);
+		pencere.add(sc);
 	}
 	public static void letTheGameBegin()
 	{
@@ -59,3 +60,4 @@ public class Main {
 	
 	}
 	
+

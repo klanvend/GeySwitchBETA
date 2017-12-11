@@ -4,20 +4,25 @@ import java.awt.Rectangle;
 
 public class Player {
 	int x,y,width,height,a=0,b=0,tus;
+	Color renk;
 	Rectangle r,d,c;
 	int hiz=0,s=0;
-	int gravitation=1;
+	int gravitation=2;
 	boolean engellen;
 	boolean cakisma,cakisma1;
-	public Player(int tus,int x, int y, int width, int height) {
+	boolean hayat;
+	public Player(int tus,int x, int y, int width, int height,Color renk,boolean hayat) {
 			r=new Rectangle(x,y,width,height);
 			this.tus=tus;
 			d=new Rectangle(0, 0,1600,50);
 			c=new Rectangle(0,800,1600,50);
+			this.renk=renk;
+			this.hayat=hayat;
 	}
 	public void ekranaCiz(Graphics g)
 	{
-			g.drawRect((int)r.getX(), (int)r.getY(), 
+			g.setColor(renk);
+			g.fillRect((int)r.getX(), (int)r.getY(), 
 				(int)r.getWidth(), (int)r.getHeight());	
 	}
 	public void GravityEffect(Player[] digerleri,Dikdortgen[] l,int dikdortgensayisi,int oyuncusayisi,int index) 
@@ -34,10 +39,14 @@ public class Player {
 			if(i!=index) 
 			{
 				if(gecici.intersects(digerleri[i].getRectangle()))
-			
 				{
 				cakisma1=true;	
 				}
+				if(r.intersects(digerleri[i].getRectangle()))
+				{
+				cakisma1=true;	
+				}
+		}
 		}
 		for(int i1=0;i1<dikdortgensayisi;i1++) 
 		{
@@ -45,7 +54,10 @@ public class Player {
 			{
 				cakisma1 = true;
 			}	
-		}
+			if (r.intersects(l[i1].getRectangle())) 	
+			{
+				cakisma1 = true;
+			}
 		}
 		if(cakisma1==false)
 		{r.setLocation((int)r.getX(),(int)r.getY()+gravitation);}
@@ -59,8 +71,8 @@ public class Player {
 		{
 			if(gecici.intersects(digerleri[i].getRectangle())) 
 			{engellen=true;}
-			if(engellen==true)
-			{r.setLocation((int)r.getX()-digerleri[i].hiz,(int)r.getY());}
+			if(r.intersects(digerleri[i].getRectangle())) 
+			{engellen=true;}
 		}
 		cakisma=false;
 		for(int i=0;i<oyuncusayisi;i++)
@@ -69,10 +81,21 @@ public class Player {
 			{
 			if(gecici.intersects(p[i].getRectangle()))
 			{cakisma=true;System.out.println("cakisma");}
+			if(cakisma==true)
+				if(p[i].engellen==true)
+				{
+					r.setLocation((int)r.getX()-digerleri[0].hiz,(int)r.getY());
+				}
+			if(r.intersects(p[i].getRectangle()))
+			{cakisma=true;System.out.println("cakisma");}
 			}
 		}
-			if(engellen==false&&cakisma==false)
+			
+			if(engellen==true&&cakisma==false)
+			{r.setLocation((int)r.getX()-digerleri[0].hiz,(int)r.getY());}
+			else if(engellen==false&&cakisma==false)
 			{r.setLocation((int)r.getX()+hiz,(int)r.getY());}
+			
 	}
 	public Rectangle getRectangle()
 	{
@@ -97,5 +120,6 @@ public class Player {
 	public void kill()
 	{
 		r.setBounds(0,0,0,0);
+		hayat=false;
 	}
 }
