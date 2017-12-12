@@ -16,8 +16,8 @@ public class Main {
 		pencere.setResizable(true);
 		pencere.setLocationRelativeTo(null);
 		pencere.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	//	openMapEditor();
-	letTheGameBegin();
+		openMapEditor();
+		//letTheGameBegin();
 	}
 	public static void openMapEditor()
 	{
@@ -36,7 +36,6 @@ public class Main {
 		Menu m=new Menu();
 		if(m.start==0) 
 		{
-			System.out.println("if girdi");
 		pencere.add(m);
 		pencere.addKeyListener(m);
 		}
@@ -53,7 +52,6 @@ public class Main {
 			pencere2.setSize(1600,900);
 			pencere2.add(p);
 			pencere2.addKeyListener(p);
-			System.out.println("else if girdi");
 			pencere2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 	}
