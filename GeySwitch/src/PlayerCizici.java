@@ -26,16 +26,24 @@ public class PlayerCizici extends JPanel implements KeyListener,ActionListener{
 	{
 	super();
 	addKeyListener(this);
-	t1=new Timer(3,this);
+	t1=new Timer(10,this);
 	d=new Rectangle(0, 0,1600,50);
 	c=new Rectangle(0,800,1600,50);
 	l=new Dikdortgen[50];
 	dOku();
+	dHiz();
 	dTasi();
 	System.out.println(dmevcut);
 	diziKlonla(g);
 	oyuncusayisi=s;
 	
+	}
+	public void dHiz()
+	{
+		for(int i=0;i<dmevcut;i++)
+		{
+			l[i].hiz=3;
+		}
 	}
 	public void dTasi()
 	{
@@ -56,8 +64,8 @@ public class PlayerCizici extends JPanel implements KeyListener,ActionListener{
 	{
 		try 
 		{
-			iStream=new ObjectInputStream(new FileInputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgen.data"));
-			iStreamS=new ObjectInputStream(new FileInputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgenS.data"));
+			iStream=new ObjectInputStream(new FileInputStream("C:\\Users\\klanvend\\Desktop\\mep\\dikdortgen.data"));
+			iStreamS=new ObjectInputStream(new FileInputStream("C:\\Users\\klanvend\\Desktop\\mep\\dikdortgenS.data"));
 			Object okunan=iStream.readObject();
 			l =(Dikdortgen[])okunan;
 			dmevcut=(int)iStreamS.readInt();
@@ -84,7 +92,12 @@ public class PlayerCizici extends JPanel implements KeyListener,ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		for(int i=0;i<oyuncusayisi;i++)
 		{
-			p[i].hiz=(int)((1200-p[i].getX())*oran);
+			if(p[i].getX()<100) p[i].hiz=5; 
+			else if(p[i].getX()<200) p[i].hiz=4;
+			else if(p[i].getX()<400) p[i].hiz=3;
+			else if(p[i].getX()<600) p[i].hiz=2;
+			else if(p[i].getX()<1400) p[i].hiz=1;
+			else p[i].hiz=0;
 			p[i].HaraketEt(l, p, oyuncusayisi, i, dmevcut, p[i].getRectangle());
 			p[i].GravityEffect(p,l,dmevcut,oyuncusayisi,i);
 			if(p[i].getX()+p[i].width<-50||p[i].getY()+p[i].height<-50||p[i].getY()+p[i].height>950)

@@ -7,7 +7,7 @@ public class Player {
 	Color renk;
 	Rectangle r,d,c;
 	int hiz=0,s=0;
-	int gravitation=2;
+	int gravitation=4;
 	boolean engellen;
 	boolean cakisma,cakisma1;
 	boolean hayat;

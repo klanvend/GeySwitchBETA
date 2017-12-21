@@ -51,12 +51,11 @@ public class MapEditor extends JPanel implements MouseMotionListener,MouseListen
 	{
 		try 
 		{
-			iStream=new ObjectInputStream(new FileInputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgen.data"));
-			iStreamS=new ObjectInputStream(new FileInputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgenS.data"));
+			iStream=new ObjectInputStream(new FileInputStream("C:\\Users\\klanvend\\Desktop\\mep\\dikdortgen.data"));
+			iStreamS=new ObjectInputStream(new FileInputStream("C:\\Users\\klanvend\\Desktop\\mep\\dikdortgenS.data"));
 			Object okunan=iStream.readObject();
 			d =(Dikdortgen[])okunan;
 			dmevcut=(int)iStreamS.readInt();
-			repaint();
 		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Okunacak Dosya Yok");
@@ -122,8 +121,8 @@ public class MapEditor extends JPanel implements MouseMotionListener,MouseListen
 			ObjectOutputStream oStream,oStreamS;
 			
 			try {
-				oStream=new ObjectOutputStream(new FileOutputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgen.data"));
-				oStreamS=new ObjectOutputStream(new FileOutputStream("C:\\Users\\PC\\Desktop\\map\\dikdortgenS.data"));
+				oStream=new ObjectOutputStream(new FileOutputStream("C:\\Users\\klanvend\\Desktop\\mep\\dikdortgen.data"));
+				oStreamS=new ObjectOutputStream(new FileOutputStream("C:\\Users\\klanvend\\Desktop\\mep\\dikdortgenS.data"));
 
 				oStream.writeObject(d);
 				oStreamS.writeInt(dmevcut);
