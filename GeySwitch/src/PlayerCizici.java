@@ -42,7 +42,7 @@ public class PlayerCizici extends JPanel implements KeyListener,ActionListener{
 	{
 		for(int i=0;i<dmevcut;i++)
 		{
-			l[i].hiz=3;
+			l[i].hiz=5;
 		}
 	}
 	public void dTasi()

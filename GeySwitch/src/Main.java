@@ -16,8 +16,8 @@ public class Main {
 		pencere.setResizable(true);
 		pencere.setLocationRelativeTo(null);
 		pencere.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		openMapEditor();
-		//letTheGameBegin();
+		//openMapEditor();
+		letTheGameBegin();
 	}
 	public static void openMapEditor()
 	{
